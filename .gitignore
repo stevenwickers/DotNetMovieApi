@@ -1,0 +1,43 @@
+bin/
+obj/
+
+# User-specific files
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# IDE settings
+.vs/
+.vscode/
+.idea/
+
+# Rider / ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# Logs
+*.log
+
+# Test output
+TestResults/
+BenchmarkDotNet.Artifacts/
+
+# NuGet
+packages/
+*.nupkg
+*.snupkg
+
+# Publish output
+publish/
+
+# Local app settings and secrets
+appsettings.Local.json
+appsettings.*.local.json
+secrets.json
+
+# OS files
+.DS_Store
+Thumbs.db
