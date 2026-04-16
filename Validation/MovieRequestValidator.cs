@@ -27,7 +27,7 @@ public static class MovieRequestValidator
 
         if (!string.IsNullOrWhiteSpace(filters.InvalidSearchMode))
         {
-            AddError(errors, nameof(filters.SearchModeText), "SearchMode must be one of: general, starts, ends, contains.");
+            AddError(errors, nameof(filters.SearchMode), "SearchMode must be one of: general, starts, ends, contains.");
         }
 
         if (!MovieSortResolver.IsAllowedSortColumn(filters.SortBy))
