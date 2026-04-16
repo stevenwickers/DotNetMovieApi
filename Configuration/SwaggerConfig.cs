@@ -18,10 +18,11 @@ public static class SwaggerConfig
         {
             options.SwaggerDoc("v1", new OpenApiInfo
             {
-                Title = "C# Minimal Movie API",
+                Title = "C# Minimal Movie API", 
+                Description = "A C# movie API exposing both REST and GraphQL endpoints for working with movie data.",
                 Version = "v1"
             });
-
+            
             options.UseInlineDefinitionsForEnums();
             options.SupportNonNullableReferenceTypes();
         });

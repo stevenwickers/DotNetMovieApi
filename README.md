@@ -1,5 +1,7 @@
 # DotNetMovieApi
 
+## A clean .NET backend proof of concept combining REST, GraphQL, PostgreSQL, and Swagger.
+
 `DotNetMovieApi` is a local-development C# movie API built with ASP.NET Core Minimal APIs, Dapper, PostgreSQL, Swagger, and GraphQL.
 
 The project exposes:

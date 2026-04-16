@@ -57,10 +57,13 @@ public static class EndpointRouteBuilderExtensions
                 });
         });
 
-        app.MapGet("/", () => Results.Redirect("/swagger/index.html"));
+        app.MapGet("/", () => Results.Redirect("/swagger/index.html"))
+            .ExcludeFromDescription();
+        
         app.MapGet("/health", () => Results.Ok(new { status = "Healthy" }))
             .WithName("HealthCheck")
-            .WithSummary("Health check");
+            .WithSummary("Health check")
+            .ExcludeFromDescription();
         
         return app;
     }
