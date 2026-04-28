@@ -34,6 +34,45 @@ This project demonstrates how **REST and GraphQL can share the same repository l
 
 ---
 
+## 🏗️ Platform Architecture
+
+```mermaid
+flowchart TD
+
+subgraph UI["🎨 Frontend Layer"]
+  ReactUI["React Movie Dashboard<br/>Filtering • CRUD • API Toggle"]
+end
+
+subgraph API["⚙️ API Layer"]
+  DotNetAPI["DotNetMovieApi<br/>.NET Minimal APIs • C#<br/>REST + GraphQL"]
+  NodeAPI["NodeMovieApi<br/>TypeScript • Express<br/>REST + GraphQL"]
+end
+
+subgraph DATA["🐘 Data Platform Layer"]
+  Functions["PostgreSQL Function Layer<br/>Filtering • Paging • Sorting • CRUD"]
+  Tables["Relational Model<br/>movies • genres • movie_genres"]
+end
+
+ReactUI --> DotNetAPI
+DotNetAPI --> Functions
+Functions --> Tables
+
+ReactUI -. Alternative implementation .-> NodeAPI
+NodeAPI -. Shares same data layer .-> Functions
+
+classDef frontend fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0f172a;
+classDef primaryApi fill:#dcfce7,stroke:#16a34a,stroke-width:3px,color:#0f172a;
+classDef secondaryApi fill:#f3f4f6,stroke:#9ca3af,stroke-width:1px,color:#374151;
+classDef data fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#0f172a;
+
+class ReactUI frontend;
+class DotNetAPI primaryApi;
+class NodeAPI secondaryApi;
+class Functions,Tables data;
+```
+
+This repository is the **.NET / C# implementation** of a multi-stack movie platform that shares a common PostgreSQL function layer with the Node.js API.
+
 ## ⚙️ Tech Stack
 
 * .NET 10
