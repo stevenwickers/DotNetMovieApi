@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using DotNetMovieApi.Json;
 using Microsoft.OpenApi;
 
 namespace DotNetMovieApi.Configuration;
@@ -11,7 +12,9 @@ public static class SwaggerConfig
 
         services.AddControllers().AddJsonOptions(options =>
         {
+            options.JsonSerializerOptions.AllowTrailingCommas = true;
             options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
         });
 
         services.AddSwaggerGen(options =>
@@ -22,7 +25,8 @@ public static class SwaggerConfig
                 Description = "A C# movie API exposing both REST and GraphQL endpoints for working with movie data.",
                 Version = "v1"
             });
-            
+
+            options.OperationFilter<SearchModeParameterFilter>();
             options.UseInlineDefinitionsForEnums();
             options.SupportNonNullableReferenceTypes();
         });

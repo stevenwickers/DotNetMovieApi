@@ -48,6 +48,18 @@ public static class EndpointRouteBuilderExtensions
                     correlationId);
             }
 
+            if (exception is BadHttpRequestException)
+            {
+                return Results.Problem(
+                    title: "Invalid request body.",
+                    detail: "Check that the JSON body is valid and uses supported field formats.",
+                    statusCode: StatusCodes.Status400BadRequest,
+                    extensions: new Dictionary<string, object?>
+                    {
+                        ["correlationId"] = correlationId
+                    });
+            }
+
             return Results.Problem(
                 title: "An unexpected error occurred.",
                 statusCode: StatusCodes.Status500InternalServerError,

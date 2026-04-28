@@ -1,126 +1,118 @@
-# DotNetMovieApi
+# 🎬 DotNetMovieApi
 
-## A clean .NET backend proof of concept combining REST, GraphQL, PostgreSQL, and Swagger.
+A production-style .NET backend demonstrating **REST + GraphQL parity**, PostgreSQL-driven query logic, and clean architecture using Minimal APIs and Dapper.
 
-`DotNetMovieApi` is a local-development C# movie API built with ASP.NET Core Minimal APIs, Dapper, PostgreSQL, Swagger, and GraphQL.
+---
 
-The project exposes:
+## 🎬 Demo
 
-- REST endpoints for movies and genres
-- A GraphQL endpoint for querying movies and patching movie data
-- Swagger UI for exploring the REST API
-- Request logging, correlation IDs, CORS, and centralized error handling
+### 🔍 Fetch Movies
 
-## Tech Stack
+![Fetch Movies](./assets/demo-select.gif)
 
-- .NET 10
-- ASP.NET Core Minimal APIs
-- Dapper
-- PostgreSQL via `Npgsql`
-- Hot Chocolate GraphQL
-- Swashbuckle / Swagger
+### ✨ Create Movie
 
-## Features
+![Create Movie](./assets/demo-create.gif)
 
-- Browse, create, update, patch, and delete movies
-- Browse genres and fetch a genre by ID
-- Filter and paginate movie results
-- Sort movie results by supported columns
-- Query movies through GraphQL
-- Patch movie records through a GraphQL mutation-backed repository method
+### ✏️ Update Movie
 
-## Endpoints
+![Update Movie](./assets/demo-update.gif)
+
+### 🩹 Patch Movie
+
+![Patch Movie](./assets/demo-patch.gif)
+
+### 🗑️ Delete Movie
+
+![Delete Movie](./assets/demo-delete.gif)
+
+---
+
+## ⭐ Key Concept
+
+This project demonstrates how **REST and GraphQL can share the same repository layer and PostgreSQL functions**, eliminating duplicated business logic while supporting multiple API paradigms.
+
+---
+
+## ⚙️ Tech Stack
+
+* .NET 10
+* C#
+* ASP.NET Core Minimal APIs
+* Dapper
+* PostgreSQL (`Npgsql`)
+* Hot Chocolate GraphQL
+* Swagger / Swashbuckle
+
+---
+
+## 🚀 Capabilities
+
+* REST and GraphQL endpoints over a shared repository layer
+* Advanced filtering, sorting, and pagination powered by PostgreSQL functions
+* Partial updates via GraphQL using JSONB patching
+* Centralized logging, correlation IDs, and error handling
+* Swagger UI for API exploration
+
+---
+
+## 🧠 Why This Project
+
+This API demonstrates real-world backend architecture patterns including separation of concerns, reusable data access layers, and multi-interface API design (REST + GraphQL) over a shared domain model.
+
+---
+
+## 📡 API Overview
 
 ### REST
 
-- `GET /movies`
-- `GET /movies/{id}`
-- `POST /movies`
-- `PUT /movies/{id}`
-- `PATCH /movies/{id}`
-- `DELETE /movies/{id}`
-- `GET /genres`
-- `GET /genres/{id}`
-- `GET /health`
-- `GET /` redirects to Swagger UI
+* `GET /movies`
+* `GET /movies/{id}`
+* `POST /movies`
+* `PUT /movies/{id}`
+* `PATCH /movies/{id}`
+* `DELETE /movies/{id}`
+* `GET /genres`
+* `GET /genres/{id}`
+* `GET /health`
 
-Swagger UI is available at:
+👉 Swagger UI:
+`http://localhost:5000/swagger`
 
-- `http://localhost:5000/swagger`
+---
 
 ### GraphQL
 
-GraphQL is enabled through Hot Chocolate and is mapped at:
+* `GET /graphql`
+* `POST /graphql`
 
-- `POST /graphql`
+#### Example Query
 
-Current GraphQL operations include:
-
-- Query movies with optional filters
-- Query a movie by ID
-- Update a movie using a patch request
-
-## Movie Query Support
-
-The `GET /movies` endpoint supports:
-
-- `search`
-- `searchMode`
-- `page`
-- `pageSize`
-- `sortBy`
-- `sortDirection`
-- `releaseDateFrom`
-- `releaseDateTo`
-- `worldwideGrossMin`
-- `worldwideGrossMax`
-- `productionBudgetMin`
-- `productionBudgetMax`
-- `domesticGrossMin`
-- `domesticGrossMax`
-- `genres`
-
-Supported `searchMode` values:
-
-- `general`
-- `starts`
-- `ends`
-- `contains`
-
-## Project Structure
-
-```text
-Configuration/   Application setup, Swagger, service registration, route mapping
-Contracts/       Request, response, enum, and support models
-Data/            Database connection and type handlers
-Endpoints/       Minimal API endpoints
-GraphQL/         GraphQL query and mutation types
-Json/            Custom JSON converters
-Middleware/      Correlation ID and request logging middleware
-Repositories/    Data access logic and repository contracts
-Services/        Request-scoped helpers
-Validation/      Request validation helpers
+```graphql
+query {
+  movies(filters: { search: "avatar", searchMode: "general", page: 1, pageSize: 10 }) {
+    items {
+      id
+      movieName
+      releaseDate
+      genres
+    }
+    totalCount
+    totalPages
+  }
+}
 ```
 
-## Running Locally
+---
 
-This project is intended as a local development proof of concept.
+## 🛠️ Running Locally
 
 ### Requirements
 
-- .NET 10 SDK
-- PostgreSQL running locally
+* .NET 10 SDK
+* PostgreSQL
 
-### Configuration
-
-The default configuration in `appsettings.json` includes:
-
-- API URL: `http://localhost:5000`
-- PostgreSQL connection string:
-  `Host=localhost;Port=55432;Database=wickers_db;Username=user;Password=password`
-- CORS origins for local frontends such as `http://localhost:5173` and `http://localhost:3000`
-
-### Start the API
+### Setup
 
 ```bash
 dotnet restore
@@ -128,9 +120,26 @@ dotnet build
 dotnet run
 ```
 
-## Notes
+---
 
-- The app uses a custom `DateOnly` Dapper type handler.
-- Enum values are serialized as strings.
-- PATCH handling supports partial updates.
-- Unhandled exceptions are returned as RFC 7807 problem details with a correlation ID.
+## 🔗 Related Projects
+
+* **NodeMovieApi (TypeScript implementation)**
+* **Postgres-Movie-Platform (database + functions)**
+
+---
+
+## 💡 Project Highlights
+
+* Demonstrates **REST + GraphQL coexistence without duplication**
+* Uses **PostgreSQL functions for complex querying**
+* Implements **production-style backend patterns**
+* Part of a **multi-stack backend platform**
+
+---
+
+## 👨‍💻 Author
+
+**Steven Wickers**
+Senior / Lead Frontend Engineer
+React • TypeScript • Node • C# • PostgreSQL • Cloud

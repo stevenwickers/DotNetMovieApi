@@ -1,6 +1,7 @@
 using DotNetMovieApi.Contracts.Enums;
 using HotChocolate;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace DotNetMovieApi.Contracts.Requests;
 
@@ -13,6 +14,7 @@ public sealed class MovieFilters
 
     [FromQuery(Name = "searchMode")]
     [GraphQLIgnore]
+    [BindNever]
     public string? SearchModeText
     {
         get => _searchModeText;

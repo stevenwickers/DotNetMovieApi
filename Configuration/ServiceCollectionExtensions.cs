@@ -17,7 +17,9 @@ public static class ServiceCollectionExtensions
         // Keep this for Minimal API JSON behavior
         services.ConfigureHttpJsonOptions(options =>
         {
+            options.SerializerOptions.AllowTrailingCommas = true;
             options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            options.SerializerOptions.Converters.Add(new DateOnlyJsonConverter());
             options.SerializerOptions.Converters.Add(new OptionalJsonConverterFactory());
         });
         

@@ -3,6 +3,7 @@ using DotNetMovieApi.Contracts.Requests;
 using DotNetMovieApi.Contracts.Responses;
 using DotNetMovieApi.Validation;
 using Microsoft.AspNetCore.Mvc;
+using Npgsql;
 
 namespace DotNetMovieApi.Endpoints;
 
@@ -80,8 +81,20 @@ public static class MovieEndpoints
             IMovieRepository repo, 
             CancellationToken cancellationToken) =>
         {
-            var id = await repo.Create(request, cancellationToken);
-            return Results.Created($"/movies/{id}", new IdResponse { Id = id });
+            try
+            {
+                var id = await repo.Create(request, cancellationToken);
+                return Results.Created($"/movies/{id}", new IdResponse { Id = id });
+            }
+            catch (PostgresException exception)
+                when (exception.SqlState == PostgresErrorCodes.UniqueViolation &&
+                      string.Equals(exception.ConstraintName, "movies_movie_name_key", StringComparison.Ordinal))
+            {
+                return Results.Conflict(new ErrorResponse
+                {
+                    Message = $"A movie named '{request.MovieName}' already exists."
+                });
+            }
         });
 
         group.MapPut("/{id:guid}", async (
@@ -139,9 +152,7 @@ public static class MovieEndpoints
             CancellationToken cancellationToken) =>
         {
             var deleted = await repo.Delete(id, cancellationToken);
-            return deleted
-                ? Results.NoContent()
-                : Results.NotFound(new ErrorResponse { Message = "Movie not found." });
+            return Results.Ok(new { deleted });
         });
 
         return app;
