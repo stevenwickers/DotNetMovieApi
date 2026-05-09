@@ -27,6 +27,7 @@ public static class SwaggerConfig
             });
 
             options.OperationFilter<SearchModeParameterFilter>();
+            options.DocumentFilter<GraphQlSwaggerDocumentFilter>();
             options.UseInlineDefinitionsForEnums();
             options.SupportNonNullableReferenceTypes();
         });

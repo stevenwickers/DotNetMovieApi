@@ -113,39 +113,6 @@ public static class MovieEndpoints
             return Results.Ok(movie);
         });
 
-        group.MapPatch("/{id:guid}", async (
-                Guid id, 
-                MoviePatchRequest request, 
-                IMovieRepository repo,
-                CancellationToken cancellationToken) =>
-        {
-            var validationErrors = MovieRequestValidator.Validate(request);
-            if (validationErrors.Count > 0)
-            {
-                return Results.ValidationProblem(validationErrors);
-            }
-
-            var patched = await repo.Patch(id, request, cancellationToken);
-            if (patched == null)
-            {
-                return Results.NotFound(new ErrorResponse { Message = "Movie not found." });
-            }
-
-            return Results.Ok(patched);
-        }).WithDescription(
-            """
-            Examples: 
-            GraphQL Updates - Use this endpoint with GraphQL to update part of the record data
-
-            Basic:
-            {
-                "worldwideGross": 1111,
-                "productionBudget": 1
-            }
-            """
-        )
-        .Accepts<MoviePatchRequestBody>("application/json");
-
         group.MapDelete("/{id:guid}", async (
             Guid id, 
             IMovieRepository repo,
