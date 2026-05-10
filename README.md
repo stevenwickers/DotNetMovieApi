@@ -4,7 +4,20 @@ A production-style .NET backend demonstrating **REST + GraphQL parity**, Postgre
 
 ---
 
-## 🎬 Demo
+## 🎬 GRAPHQL Demo
+
+### 🔍 Query
+
+![Query](./assets/graphQLquery.gif)
+
+### 🔍 Mutation
+
+![Mutation](./assets/graphQLmutation.gif)
+
+---
+
+---
+## 🎬 REST Demo
 
 ### 🔍 Fetch Movies
 
@@ -163,8 +176,8 @@ dotnet run
 
 ## 🔗 Related Projects
 
-* **NodeMovieApi (TypeScript implementation)**
-* **Postgres-Movie-Platform (database + functions)**
+* **[NodeMovieApi](https://github.com/stevenwickers/NodeMovieApi) (TypeScript implementation)**
+* **[Postgres-Movie-Platform](https://github.com/stevenwickers/Postgres-Movie-Platform) (database + functions)**
 
 ---
 
@@ -182,3 +195,5 @@ dotnet run
 **Steven Wickers**
 Senior / Lead Frontend Engineer
 React • TypeScript • Node • C# • PostgreSQL • Cloud
+
+🔵 [LinkedIn](https://www.linkedin.com/in/stevenwickers/)
